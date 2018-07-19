@@ -11,3 +11,4 @@ six==1.11.0
 uWSGI==2.0.17
 Whoosh
 jieba
+django-haystack
