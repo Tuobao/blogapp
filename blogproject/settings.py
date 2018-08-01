@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     # 第三方app
     'haystack',
+    'rest_framework',
 ]
 
 # haystack 配置
@@ -99,7 +100,7 @@ DATABASES = {
         'NAME': 'blogdata',
         'USER': 'root',
         'PASSWORD': '1234',
-        'HOST': '127.0.0.1',
+        'HOST': '127.17.0.2',
         'PORT': 3306,
     }
 }

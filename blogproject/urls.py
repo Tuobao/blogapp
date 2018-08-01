@@ -25,3 +25,8 @@ urlpatterns = [
     url(r'^all/rss/$', AllPostsRssFeed(), name='rss'),
     url(r'^search/', include('haystack.urls')),
 ]
+
+urlpatterns += [
+    url(r'^api-auth/', include('rest_framework.urls',
+                               namespace='rest_framework')),
+]

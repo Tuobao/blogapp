@@ -35,24 +35,27 @@ class Post(models.Model):
     category = models.ForeignKey(Category)
     tags = models.ManyToManyField(Tag, blank=True)
 
-    #文章作者 User 从django.contrib.auth.models包里导入
+    # 文章作者 User 从django.contrib.auth.models包里导入
     # django.contrib.auth 是 Django 内置的应用，专门用于处理网站用户的注册、登录等流程，User 是 Django 为我们已经写好的用户模型。
     # 一篇文章有一个作者，一个作者可有多篇文章，为一对多关系，外键
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(User, related_name='author')
 
     #阅读量
     views = models.PositiveIntegerField(default=0, editable=False)
 
     def __str__(self):
         return self.title
-    #自定义get_absolute_url方法 reverse需要从django.urls导入
+
+    # 自定义get_absolute_url方法 reverse需要从django.urls导入
     def get_absolute_url(self):
         return reverse('blog:detail', kwargs={'pk': self.pk})
+
     def increase_views(self):
         self.views += 1
         self.save(update_fields=['views'])
+
     def save(self, *args, **kwargs):
-        #如果没有填写摘要，则自动生成摘要
+        # 如果没有填写摘要，则自动生成摘要
         if not self.excerpt:
             md = markdown.Markdown(extensions=[
                 'markdown.extensions.extra',
@@ -61,5 +64,8 @@ class Post(models.Model):
 
             self.excerpt = strip_tags(md.convert(self.body))[:54]
         super(Post, self).save(*args, **kwargs)
+
     class Meta:
         ordering = ['-created_time']
+
+
