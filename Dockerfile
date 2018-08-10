@@ -9,7 +9,7 @@ RUN apt-get install -y nginx
 
 ADD requirements.txt /code/
 
-RUN pip install -r requirements.txt
+RUN pip install -i https://pypi.douban.com/simple -r requirements.txt
 
 ADD . /code/
 
